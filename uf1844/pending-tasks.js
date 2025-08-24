@@ -1,4 +1,4 @@
-// Objetivo: devolver SOLO las tareas pendientes usando el método de array adecuado.
+// Devolver solo las tareas pendientes usando el método de array adecuado.
 // BONUS: no usar "==" ni "==="; usamos la negación (!) sobre el booleano.
 
 function filterPendingTasks(tasks) {

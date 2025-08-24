@@ -51,7 +51,7 @@ async function main() {
         console.log('Consulta 3 - Películas a partir del año 2000:', recentMovies);
 
         // Consulta 4: Encuentra 3 películas ordenadas por fecha de lanzamiento en orden ascendente. Las más antiguas de toda la base de datos
-        const orderedMovies = await collection.aggregate([
+        const orderedMovies = await collection.aggregate([ // Usamos aggregate para mayor flexibilidad
             { $match: { year: { $exists: true, $type: 'number' } } }, // Aseguramos que el campo year existe y es un número, evitamos nulls.
             {
                 $group: {
