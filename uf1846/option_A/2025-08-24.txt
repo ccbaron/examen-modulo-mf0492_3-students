@@ -1,0 +1,4 @@
+Se ha realizado una consulta sobre el paciente número 67890123456
+Se ha realizado una consulta sobre el paciente número 45678901210
+Se ha realizado una consulta sobre el paciente número 67890123456
+Se ha realizado una consulta sobre el paciente número 45678901210

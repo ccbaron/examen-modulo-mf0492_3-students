@@ -51,13 +51,19 @@ async function main() {
         console.log('Consulta 3 - Películas a partir del año 2000:', recentMovies);
 
         // Consulta 4: Encuentra 3 películas ordenadas por fecha de lanzamiento en orden ascendente. Las más antiguas de toda la base de datos
-        const orderedMovies = await collection.find(
-            {},
-            { projection: { title: 1, year: 1, _id: 0 } }
-        )
-            .sort({ year: 1 }) // Ordena por año en orden ascendente
-            .limit(3)
-            .toArray();
+        const orderedMovies = await collection.aggregate([
+            { $match: { year: { $exists: true, $type: 'number' } } }, // Aseguramos que el campo year existe y es un número, evitamos nulls.
+            {
+                $group: {
+                    _id: { title: "$title", year: "$year" }, // Evitamos duplicados por título y año
+                    title: { $first: "$title" },
+                    year: { $first: "$year" }
+                }
+            },
+            { $sort: { year: 1 } }, // Ordena por año de forma ascendente
+            { $limit: 3 },
+            { $project: { _id: 0, title: 1, year: 1 } }
+        ]).toArray();
         console.log('Consulta 4 - Películas ordenadas por año de forma creciente:', orderedMovies);
 
         // Consulta 5 (Difícil): Encuentra 3 películas con una calificación mayor a 8.5 y más de 10000 votos en IMDb, mostrando solo título, año y calificación. Ordénalas de forma descendiente por calificación
